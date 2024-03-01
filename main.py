@@ -3,7 +3,10 @@
                             Online Python Compiler.
                 Code, Compile, Run and Debug python program online.
 Write your code in this editor and press "Run" button to execute it.
-
+user_privileges_level - 1 = President
+user_privileges_level - 2 = Vice-President
+user_privileges_level - 3 = Chairman
+user_privileges_level - 4 = Director
 '''
 
 from collections import defaultdict
@@ -29,7 +32,7 @@ def fetch_profile(user_id,requesting_user):
 
 def view_profile(user_id, requesting_user):
     if user_id in list_users and requesting_user in list_users:
-        if(list_users[requesting_user].user_privilege_level >= 2):#checking user access privilege.
+        if(list_users[requesting_user].user_privilege_level <= 3):#checking user access privilege.
             return list_users[user_id]
         else:
             return "Insufficient Privileges!!"
