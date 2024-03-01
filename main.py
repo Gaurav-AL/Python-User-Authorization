@@ -5,6 +5,7 @@
 Write your code in this editor and press "Run" button to execute it.
 
 '''
+
 from collections import defaultdict
 import random
 class User:
@@ -18,8 +19,8 @@ class User:
     def __str__(self):
         return f"user-id : {self.user_id}, user-name : {self.user_name}, user-age :{self.user_age},user-hobby : {self.user_hobby}"
 list_users = defaultdict(User)
-def fetch_profile(user_id):
-    profile = view_profile(user_id)
+def fetch_profile(user_id,requesting_user):
+    profile = view_profile(user_id,requesting_user)
     
     if(profile):
         print(profile)
@@ -27,17 +28,19 @@ def fetch_profile(user_id):
         print("User Doesn't Exist's :(")
 
 def view_profile(user_id, requesting_user):
-    if(requesting_user.user_privilege_level >= 2):#checking user access privilege.
-        if user_id in list_users:
+    if user_id in list_users and requesting_user in list_users:
+        if(list_users[requesting_user].user_privilege_level >= 2):#checking user access privilege.
             return list_users[user_id]
-        return None
+        else:
+            return "Insufficient Privileges!!"
+    return None
 
 def register_user():
     user_id = input("Enter user id :")
     user_name = input("Enter user name :")
     user_age = input("Enter user age :")
     user_hobby = input("Enter user personal favourite hobby :")
-    if(user_id >= 20):
+    if(int(user_age) <= 23):
         user_privilege_level = random.randint(3,10)
     else:
         user_privilege_level = random.randint(0,3)
